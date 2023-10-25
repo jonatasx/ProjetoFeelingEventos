@@ -33,6 +33,7 @@ namespace ProEventos.API
             );
 
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FeelingEventos.API", Version = "v1" });
@@ -49,11 +50,15 @@ namespace ProEventos.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FeelingEventos.API v1"));
             }
 
-            app.UseHttpsRedirection();
+           
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(x => x.AllowAnyHeader()
+                              .AllowAnyMethod()
+                              .AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {
